@@ -63,7 +63,7 @@ public class ShadowBoxe {
 		}
 	}
 
-	/*public static void main(String[] args) {
+	public static void main(String[] args) {
 		Scanner in = new Scanner(System.in);
 		ShadowBoxe sb = new ShadowBoxe();
 		
@@ -94,6 +94,6 @@ public class ShadowBoxe {
 		System.out.println("Deseja continuar a mesma seleção? s = sim, n = não)");
 		opcao = in.next();
 		} while(opcao.equals("s"));
-	}*/
+	}
 
 }

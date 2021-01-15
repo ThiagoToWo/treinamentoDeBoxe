@@ -4,7 +4,9 @@ import java.awt.Toolkit;
 import java.security.SecureRandom;
 import java.util.Arrays;
 
+import javax.swing.JLabel;
 import javax.swing.JTextArea;
+import javax.swing.JTextPane;
 
 public class Base {
 	// códigos dos combos por categorias
@@ -103,6 +105,15 @@ public class Base {
 			painel.setText(combos[i].toString());
 		};
 	}
+	
+	public void exibirCombo(int i, JTextPane categoria, JLabel combo, JTextPane legenda) {
+		if (combos[i] != null) { // pula os elementos vazios
+			Toolkit.getDefaultToolkit().beep();
+			categoria.setText(combos[i].getCategoria());
+			combo.setText(combos[i].getCodigo());
+			legenda.setText(combos[i].getLegenda());
+		};
+	}
 
 	public void limparCombos() {
 		Arrays.fill(combos, null);
@@ -110,13 +121,13 @@ public class Base {
 	
 	public int getTime(int velocidade) {
 		if (velocidade == 0) {
-			return 2000;			
+			return 4000;			
 		} else if (velocidade == 1) {
-			return 1500;			
+			return 3000;			
 		} else if (velocidade == 2) {
-			return 1000;			
+			return 2000;			
 		} else {
-			return 500;			
+			return 1000;			
 		}
-	}
+	}	
 }

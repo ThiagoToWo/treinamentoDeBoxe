@@ -12,21 +12,26 @@ import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTextArea;
+import javax.swing.JTextPane;
+import javax.swing.SwingConstants;
 import javax.swing.Timer;
 
 public class Gui extends JFrame {	
 
+	private static final long serialVersionUID = 1L;
 	private JPanel painelDeFundo;
 	private JPanel painelDeSecao;
-	private JTextArea painelDeExibicao;
+	private JPanel painelDeExibicao;
+	private JTextPane categPane;
+	private JLabel comboLabel;
+	private JTextPane legendaPane;
 	private JPanel painelDeBotao;
 	private String[] categDeAbertura = {"Nenhuma", "Aberturas Básicas", "Aberturas contra oponentes defensivos", "Todas"};
 	private String[] categDeCombBasica = {"Nenhuma", "Combinações básicas", "Combinações In-Fighting", "Todas"};
 	private String[] categDeCombAvancada = {"Nenhuma", "Combinações evasivas", "Combinações avançadas", "Todas"};
 	private String[] categDeCombOutros = {"Nenhuma", "Combos para ortodoxos vs southpaw", "Combos para southpaw vs ortodoxos", "Todas"};
 	private String[] categDeFinal = {"Nenhuma", "Finalizações poderosas", "Finalizações evasivas", "Todas"};
-	private String[] velocidades = {"Primeiro contato (5 a 24 segundos)", "Iniciante (5 a 16 segundos)", "Praticante (5 a 8 segundos)", "Avançado (1 a 3 segundos)"};
+	private String[] velocidades = {"Primeiro contato (4 a 20 segundos)", "Iniciante (3 a 15 segundos)", "Praticante (2 a 10 segundos)", "Avançado (1 a 5 segundos)"};
 	private JComboBox<String> categDeAbertura1;
 	private JComboBox<String> categDeCombBasica1;
 	private JComboBox<String> categDeCombAvancada1;
@@ -41,19 +46,30 @@ public class Gui extends JFrame {
 	private int passo = -1;
 	private Font fonteLabel;
 	private Font fonteVisivel;
-	private Font fonteExibicao;
+	private Font fonteCategoria;
+	private Font fonteCombo;
+	private Font fonteLegenda;
 	
 	public Gui() {
 		setTitle("SHADOW BOXING");
 		fonteLabel = new Font(getName(), Font.BOLD, 20);
 		fonteVisivel = new Font(getName(), Font.BOLD, 16);
-		fonteExibicao = new Font(getName(), Font.BOLD, 32);
+		fonteCategoria = new Font(getName(), Font.BOLD, 32);
+		fonteCombo = new Font(getName(), Font.BOLD, 72);
+		fonteLegenda = new Font(getName(), Font.BOLD, 32);
 		
 		painelDeFundo = new JPanel();		
 		painelDeFundo.setLayout(new GridLayout(1, 2));
 		painelDeSecao = new JPanel(new GridLayout(6, 2));
-		painelDeExibicao = new JTextArea();
-		painelDeExibicao.setFont(fonteExibicao);
+		painelDeExibicao = new JPanel();
+		painelDeExibicao.setLayout(new GridLayout(3, 1));
+		categPane = new JTextPane();
+		categPane.setFont(fonteCategoria);
+		comboLabel = new JLabel();
+		comboLabel.setFont(fonteCombo);
+		comboLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		legendaPane = new JTextPane();
+		legendaPane.setFont(fonteLegenda);
 		painelDeBotao = new JPanel();
 		
 		categDeAbertura1 = new JComboBox<String>(categDeAbertura);
@@ -68,7 +84,6 @@ public class Gui extends JFrame {
 		categorias[4] = categDeFinal1;
 		
 		for (JComponent jc : categorias) {
-			JComboBox<String> jcb = (JComboBox<String>) jc;
 			jc.setFont(fonteVisivel);
 		}
 		
@@ -94,6 +109,10 @@ public class Gui extends JFrame {
 		painelDeSecao.add(categDeFinal1);
 		painelDeSecao.add(new Label("Ritmo", fonteLabel));
 		painelDeSecao.add(velocidades1);
+		
+		painelDeExibicao.add(categPane);
+		painelDeExibicao.add(comboLabel);
+		painelDeExibicao.add(legendaPane);
 		
 		painelDeBotao.add(botaoIniciar);
 		painelDeBotao.add(botaoParar);
@@ -121,6 +140,7 @@ public class Gui extends JFrame {
 			round.stop(); // para o round
 			passo = -1; // reinicia o passo
 			for (JComponent jc : categorias) { 
+				@SuppressWarnings("unchecked")
 				JComboBox<String> jcb = (JComboBox<String>) jc;
 				jcb.setEnabled(true); // habilita seleções
 				jcb.setSelectedIndex(0); // desfaz seleções anteriores
@@ -128,7 +148,10 @@ public class Gui extends JFrame {
 			
 			velocidades1.setEnabled(true);// reativa a seleção de velocidades
 			base.limparCombos(); // limpar os combos da base
-			painelDeExibicao.setText(""); // apaga o painel de exibição
+			// apaga o painel de exibição
+			categPane.setText("");
+			comboLabel.setText("");
+			legendaPane.setText(""); 
 		}
 
 	}
@@ -141,6 +164,7 @@ public class Gui extends JFrame {
 			boolean podeIniciar = false; // para decidir se pode iniciar o round
 			
 			for (int i = 0; i < categorias.length; i++) {
+				@SuppressWarnings("unchecked")
 				JComboBox<String> categ = (JComboBox<String>) categorias[i];
 				// olha todas as categorias. Se uma estiver escolhida, pode iniciar
 				if (categ.getSelectedIndex() != 0) podeIniciar = true;
@@ -149,6 +173,7 @@ public class Gui extends JFrame {
 			if (podeIniciar)  {
 				// desabilita seleções durante o round
 				for (JComponent jc : categorias) { 
+					@SuppressWarnings("unchecked")
 					JComboBox<String> jcb = (JComboBox<String>) jc;
 					jcb.setEnabled(false);
 				}
@@ -166,9 +191,10 @@ public class Gui extends JFrame {
 		public void actionPerformed(ActionEvent e) {
 			passo++;
 			if (passo < 5) {
+				@SuppressWarnings("unchecked")
 				JComboBox<String> categ = (JComboBox<String>) categorias[passo];
 				base.definirCombo(passo, categ.getSelectedIndex());
-				base.exibirCombo(passo, painelDeExibicao);
+				base.exibirCombo(passo, categPane, comboLabel, legendaPane);
 			} else {
 				passo = -1;
 			}
@@ -176,6 +202,9 @@ public class Gui extends JFrame {
 	}
 	
 	public class Label extends JLabel {
+		
+		private static final long serialVersionUID = 1L;
+
 		public Label(String texto, Font fonte) {
 			super.setText(texto);
 			super.setFont(fonte);
