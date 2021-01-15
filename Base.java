@@ -2,25 +2,25 @@ package treinamento_boxe;
 
 import java.awt.Toolkit;
 import java.security.SecureRandom;
+import java.util.Arrays;
 
-import javax.swing.JLabel;
-import javax.swing.JPanel;
+import javax.swing.JTextArea;
 
 public class Base {
 	// códigos dos combos por categorias
-	private String[] aberturasBasicas = {"1", "1-2", "1-6b", "2-1"};
-	private String[] aberturasParaDefensivos = {"1-3-2", "1b-2", "1-2b", "1-2b-3", "4-1b", "4b-6-3-2",
+	private final String[] aberturasBasicas = {"1", "1-2", "1-6b", "2-1"};
+	private final String[] aberturasParaDefensivos = {"1-3-2", "1b-2", "1-2b", "1-2b-3", "4-1b", "4b-6-3-2",
 												"bs-2", "1f-3", "6-2", "2-2", "1t-2", "1t-2t-3"};
-	private String[] combinacoesBasicas = {"1-1", "1-1-2", "1-2", "1-2-1", "1-2-1-2", "1-2-3-2", "1-6-3-2"};
-	private String[] combinacoesInFighting = {"6-5-2-1p", "6-3", "6-3p", "4b-3b-2-1-2", "rs-5",
+	private final String[] combinacoesBasicas = {"1-1", "1-1-2", "1-2", "1-2-1", "1-2-1-2", "1-2-3-2", "1-6-3-2"};
+	private final String[] combinacoesInFighting = {"6-5-2-1p", "6-3", "6-3p", "4b-3b-2-1-2", "rs-5",
 											  "1-2-3b-p-4b-4-1", "1-4b-3b-6-1"};
-	private String[] combinacoesEvasivas = {"1-2-/1/-2", "1-2-/1/-2-3-2", "1-2-{3}-2", "1-2-{3}-/2/-3-2",
+	private final String[] combinacoesEvasivas = {"1-2-/1/-2", "1-2-/1/-2-3-2", "1-2-{3}-2", "1-2-{3}-/2/-3-2",
 											"1-2-{3}-3-2-3", "1-2-3-{2}-3-2", "1-/1/-2-1-1", "1-/1/-2-3-2"};
-	private String[] combinacoesAvancadas = {"1-bs-1", "1-bs-1-2"};
-	private String[] combinacoesOrtVsSp = {"2-2-1bs", "1-2b", "2-rs-2-1-2b", "2-1-2b", "1-1-2b-3"};
-	private String[] combinacoesSpVsOrt = {"1-2", "2-2", "2-3-2", "2-3-2b", "1-1-2b-3", "6-1-2", "6b-6-2-1", "2-1-1-6-1"};
-	private String[] finalizacoesPoderosas = {"1p-2"};
-	private String[] finalizacoesEvasivas = {"1p", "1b-bs", "4bpccw", "3p", "2-p-2"};
+	private final String[] combinacoesAvancadas = {"1-bs-1", "1-bs-1-2"};
+	private final String[] combinacoesOrtVsSp = {"2-2-1bs", "1-2b", "2-rs-2-1-2b", "2-1-2b", "1-1-2b-3"};
+	private final String[] combinacoesSpVsOrt = {"1-2", "2-2", "2-3-2", "2-3-2b", "1-1-2b-3", "6-1-2", "6b-6-2-1", "2-1-1-6-1"};
+	private final String[] finalizacoesPoderosas = {"1p-2"};
+	private final String[] finalizacoesEvasivas = {"1p", "1b-bs", "4bpccw", "3p", "2-p-2"};
 	// Combos por categoria
 	private Combo[] aberturasBasicas1 = new Combo[4];
 	private Combo[] aberturasParaDefensivos1 = new Combo[12];
@@ -33,13 +33,12 @@ public class Base {
 	private Combo[] finalizacoesPoderosas1 = new Combo[1];
 	private Combo[] finalizacoesEvasivas1 = new Combo[5];
 	// tabela de combos
-	private Combo[][][] combosTable = { { {}, aberturasBasicas1, aberturasParaDefensivos1 },
+	private final Combo[][][] combosTable = { { {}, aberturasBasicas1, aberturasParaDefensivos1 },
 										{ {}, combinacoesBasicas1, combinacoesInFighting1 },
 										{ {}, combinacoesEvasivas1, combinacoesAvancadas1 },
 										{ {}, combinacoesOrtVsSp1, combinacoesSpVsOrt1 },
 										{ {}, finalizacoesPoderosas1, finalizacoesEvasivas1 } };
-	private static Combo[] combos = new Combo[5]; // combos divididos por seção
-	private static int velocidade;
+	private Combo[] combos = new Combo[5]; // combos divididos por seção
 	private SecureRandom rand = new SecureRandom();
 	
 	public Base() {
@@ -85,8 +84,7 @@ public class Base {
 	}
 
 	public void definirCombo(int secao, int selecao) {
-		if (selecao == 0)
-			return;
+		if (selecao == 0) return;
 		if (selecao == 1 || selecao == 2) {
 			combos[secao] = combosTable[secao][selecao][rand.nextInt(combosTable[secao][selecao].length)];
 		} else {
@@ -99,41 +97,26 @@ public class Base {
 		}
 	}
 
-	public void exibirCombo(int velocidade, JPanel painel) {
-		for (Combo c : combos) {			
-			if (c != null) {
-				contagem(velocidade);
-				Toolkit.getDefaultToolkit().beep();
-				painel.add(new JLabel(c.toString()));
-			}
-		}		
+	public void exibirCombo(int i, JTextArea painel) {
+		if (combos[i] != null) { // pula os elementos vazios
+			Toolkit.getDefaultToolkit().beep();
+			painel.setText(combos[i].toString());
+		};
 	}
 
-	private void contagem(int velocidade2) {
+	public void limparCombos() {
+		Arrays.fill(combos, null);
+	}
+	
+	public int getTime(int velocidade) {
 		if (velocidade == 0) {
-			try {
-				Thread.sleep(2 * 1000);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
+			return 2000;			
 		} else if (velocidade == 1) {
-			try {
-				Thread.sleep(15 * 100);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
+			return 1500;			
 		} else if (velocidade == 2) {
-			try {
-				Thread.sleep(1 * 1000);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
+			return 1000;			
 		} else {
-			try {
-				Thread.sleep(5 * 100);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
+			return 500;			
 		}
 	}
 }

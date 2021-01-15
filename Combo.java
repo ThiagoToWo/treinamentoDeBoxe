@@ -1,16 +1,14 @@
 package treinamento_boxe;
 
-import java.util.StringTokenizer;
-
 public class Combo {
 	private String codigo;
 	private String[] golpes;
 	private String categoria;
 	private String legenda = "";
-	private String[] notacao = {"1", "2", "3", "4", "5", "6", "b", 
-								"\\[\\]", "\\(\\)", "\\{\\}", "\\/\\/", "\\<\\>",
+	private final String[] notacao = {"1", "2", "3", "4", "5", "6", "b", 
+								"\\[\\]", "\\(\\)", "\\{\\}", "\\/", "\\<\\>",
 								"p", "pccw", "bp", "ls", "rs", "bs", "f", "t", "sl", "sr"};
-	private String[] significado = {"jab", "direto ou cruzado de direita", "gancho de esquerda", 
+	private final String[] significado = {"jab", "direto ou cruzado de direita", "gancho de esquerda", 
 									"gancho de direita ou overhand", "upper de esquerda", "upper de direita",
 									"no corpo (exemplo: 1b = jab no corpo)",
 									"bloqueio", "defesa de giro de ombros", "pendulo (rolar por baixo)",
@@ -41,11 +39,7 @@ public class Combo {
 	}
 	
 	public void setGolpes(String codigo) {
-		StringTokenizer stk = new StringTokenizer(codigo, "-");
-		golpes = new String[stk.countTokens()];
-		while (stk.hasMoreTokens()) {
-			for (int i = 0; i < golpes.length; i++) golpes[i] = stk.nextToken();			
-		}
+		golpes = codigo.split("-");
 	}
 	
 	public String getLegenda() {
@@ -55,7 +49,8 @@ public class Combo {
 	public void setLegenda() {		
 		for (String g : golpes) {
 			for (int i = 0; i < notacao.length; i++) {
-				if (g.matches(notacao[i]))	legenda += "\n" + significado[1] ;			
+				if (g.contains(notacao[i]))	legenda += "\n" + notacao[i] // vê se contém 
+						+ " = " + significado[i]; // coloca a notação + legenda			
 			}
 		}
 	}
@@ -68,8 +63,10 @@ public class Combo {
 		this.categoria = categoria;
 	}
 
-	public String toString() {
-		String combo = getCategoria() + "\n\n" + getCodigo() + getLegenda();
-		return combo;
+	@Override
+	public String toString() {		
+		String combo = getCategoria() + "\n\n" + getCodigo() + "\n" + getLegenda();
+		return combo;	
 	}
 }
+	
