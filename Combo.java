@@ -6,8 +6,8 @@ public class Combo {
 	private String categoria;
 	private String legenda = "";
 	private final String[] notacao = {"1", "2", "3", "4", "5", "6", "B", 
-								"\\[\\d\\]", "\\(\\d\\)", "\\{\\d\\}", "\\/\\d\\/", "\\<\\d\\>",
-								"P", "Pccw", "bP", "bpccw", "ls", "rs", "bs", "f", "t", "sl", "sr"};
+									  "[]", "()", "{}", "//", "<>",
+									  "P", "Pccw", "bP", "bpccw", "ls", "rs", "bs", "f", "t", "sl", "sr"};
 	private final String[] significado = {"jab", "direto ou cruzado de direita", "gancho de esquerda", 
 									"gancho de direita ou overhand", "upper de esquerda", "upper de direita",
 									"no corpo (exemplo: 1b = jab no corpo)",
@@ -46,13 +46,28 @@ public class Combo {
 		return legenda;
 	}
 	
-	public void setLegenda() {		
+	public void setLegenda() {
 		for (String g : golpes) {
 			for (int i = 0; i < notacao.length; i++) {
-				if (g.contains(notacao[i]))	{
-					legenda += "\n" + notacao[i] // vê se contém 
-							+ " = " + significado[i]; // coloca a notação + legenda	
-				} 							
+				if (g.contains(notacao[i])) {
+					legenda += "\n" + notacao[i] // vê se contém
+							+ " = " + significado[i]; // coloca a notação + legenda
+				} else if (i == 7 && g.contains("[")) {
+					legenda += "\n" + notacao[i] // vê se contém
+							+ " = " + significado[i]; // coloca a notação + legenda
+				} else if (i == 8 && g.contains("(")) {
+					legenda += "\n" + notacao[i] // vê se contém
+							+ " = " + significado[i]; // coloca a notação + legenda
+				} else if (i == 9 && g.contains("{")) {
+					legenda += "\n" + notacao[i] // vê se contém
+							+ " = " + significado[i]; // coloca a notação + legenda
+				} else if (i == 10 && g.contains("/")) {
+					legenda += "\n" + notacao[i] // vê se contém
+							+ " = " + significado[i]; // coloca a notação + legenda
+				} else if (i == 11 && g.contains("<")) {
+					legenda += "\n" + notacao[i] // vê se contém
+							+ " = " + significado[i]; // coloca a notação + legenda
+				}
 			}
 		}
 	}
