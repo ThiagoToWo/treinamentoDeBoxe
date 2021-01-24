@@ -1,6 +1,7 @@
 package treinamento_boxe;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -65,11 +66,14 @@ public class Gui extends JFrame {
 		painelDeExibicao.setLayout(new GridLayout(3, 1));
 		categPane = new JTextPane();
 		categPane.setFont(fonteCategoria);
+		categPane.setBackground(Color.GRAY);
 		comboLabel = new JLabel();
+		comboLabel.setBackground(Color.WHITE);
 		comboLabel.setFont(fonteCombo);
 		comboLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		legendaPane = new JTextPane();
 		legendaPane.setFont(fonteLegenda);
+		legendaPane.setBackground(Color.GRAY);
 		painelDeBotao = new JPanel();
 		
 		categDeAbertura1 = new JComboBox<String>(categDeAbertura);

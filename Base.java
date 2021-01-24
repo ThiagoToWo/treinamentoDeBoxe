@@ -10,19 +10,19 @@ import javax.swing.JTextPane;
 
 public class Base {
 	// códigos dos combos por categorias
-	private final String[] aberturasBasicas = {"1", "1-2", "1-6b", "2-1"};
-	private final String[] aberturasParaDefensivos = {"1-3-2", "1b-2", "1-2b", "1-2b-3", "4-1b", "4b-6-3-2",
+	private final String[] aberturasBasicas = {"1", "1-2", "1-6B", "2-1"};
+	private final String[] aberturasParaDefensivos = {"1-3-2", "1B-2", "1-2B", "1-2B-3", "4-1B", "4B-6-3-2",
 												"bs-2", "1f-3", "6-2", "2-2", "1t-2", "1t-2t-3"};
 	private final String[] combinacoesBasicas = {"1-1", "1-1-2", "1-2", "1-2-1", "1-2-1-2", "1-2-3-2", "1-6-3-2"};
-	private final String[] combinacoesInFighting = {"6-5-2-1p", "6-3", "6-3p", "4b-3b-2-1-2", "rs-5",
-											  "1-2-3b-p-4b-4-1", "1-4b-3b-6-1"};
+	private final String[] combinacoesInFighting = {"6-5-2-1P", "6-3", "6-3P", "4B-3B-2-1-2", "rs-5",
+											  "1-2-3B-P-4B-4-1", "1-4B-3B-6-1"};
 	private final String[] combinacoesEvasivas = {"1-2-/1/-2", "1-2-/1/-2-3-2", "1-2-{3}-2", "1-2-{3}-/2/-3-2",
 											"1-2-{3}-3-2-3", "1-2-3-{2}-3-2", "1-/1/-2-1-1", "1-/1/-2-3-2"};
 	private final String[] combinacoesAvancadas = {"1-bs-1", "1-bs-1-2"};
-	private final String[] combinacoesOrtVsSp = {"2-2-1bs", "1-2b", "2-rs-2-1-2b", "2-1-2b", "1-1-2b-3"};
-	private final String[] combinacoesSpVsOrt = {"1-2", "2-2", "2-3-2", "2-3-2b", "1-1-2b-3", "6-1-2", "6b-6-2-1", "2-1-1-6-1"};
-	private final String[] finalizacoesPoderosas = {"1p-2"};
-	private final String[] finalizacoesEvasivas = {"1p", "1b-bs", "4bpccw", "3p", "2-p-2"};
+	private final String[] combinacoesOrtVsSp = {"2-2-1bs", "1-2B", "2-rs-2-1-2B", "2-1-2B", "1-1-2B-3"};
+	private final String[] combinacoesSpVsOrt = {"1-2", "2-2", "2-3-2", "2-3-2B", "1-1-2B-3", "6-1-2", "6B-6-2-1", "2-1-1-6-1"};
+	private final String[] finalizacoesPoderosas = {"1P-2"};
+	private final String[] finalizacoesEvasivas = {"1P", "1B-bs", "4bpccw", "3P", "2-P-2"};
 	// Combos por categoria
 	private Combo[] aberturasBasicas1 = new Combo[4];
 	private Combo[] aberturasParaDefensivos1 = new Combo[12];
